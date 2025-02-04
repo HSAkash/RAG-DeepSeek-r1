@@ -35,3 +35,15 @@ def get_config(CONFIG_PATH=CONFIG_PATH):
         ConfigBox: ConfigBox type
     """
     return read_yaml(CONFIG_PATH)
+
+
+def remove_thinking_from_message(message:str)->str:
+    """removes thinking from message
+    Args:
+        message (str): message
+    Returns:
+        str: message without thinking
+    """
+    close_tag = "</think>"
+    tag_length = len(close_tag)
+    return message[message.index(close_tag) + tag_length:]
