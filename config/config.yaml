@@ -42,3 +42,28 @@ preprocessing:
 
     Please give a short succinct context to situate this chunk within the overall document.
     Context:
+  
+llm_prompts:
+  SYSTEM_PROMPT: |
+    You're having a conversation with an user about excerpts of their files. Try to be helpful and answer their questions.
+    If you don't know the answer, say that you don't know and try to ask clarifying questions.
+
+  QUERY_TEMPLATE: |
+    Here's the information you have about the excerpts of the files:
+
+    <context>
+    {context}
+    </context>
+
+    One file can have multiple excerpts.
+
+    Please, respond to the query below:
+
+    <question> {question} </question>
+    Answer:
+
+  FILE_TEMPLATE: |
+    <file>
+        <name>{name}</name>
+        <content>{content}</content>
+    </file>
