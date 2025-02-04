@@ -1,0 +1,42 @@
+[project]
+name = "RAG-DeepSeek"
+version = "0.0.1"
+requires-python = ">=3.10"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "HSAkash", email = "hemelakash472@gmail.com" },
+]
+description = "Download anime from gogoanime website."
+
+keywords = ["RAG", "DeepSeek-R1"]
+
+
+dependencies = [
+    "fastembed>=0.5.1",
+    "flashrank>=0.2.10",
+    "langchain>=0.3.17",
+    "langchain-community>=0.3.16",
+    "langchain-ollama>=0.2.3",
+    "langgraph>=0.2.68",
+    "ollama>=0.4.7",
+    "python-box>=6.0.2",
+    "python-docx>=1.1.2",
+    "pypdfium2>=4.30.1",
+    "rank-bm25>=0.2.2",
+    "streamlit>=1.41.1",
+]
+
+
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.3.5",
+    "loguru>=0.7.3",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.4",
+    "ruff>=0.9.4",
+    "watchdog>=6.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/HSAkash/RAG-DeepSeek-r1"
