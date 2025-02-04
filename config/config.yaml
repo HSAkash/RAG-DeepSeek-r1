@@ -70,5 +70,6 @@ llm_prompts:
     </file>
 
   vector_store:
-    VECTOR_STORE_PATH: data/vector_store
+    VECTOR_STORE_DIR: data/vector_store
     CONCATENATE_VECTOR_FILE_PATH: data/vector_store/concatenate.db
+    CONCATENATE_DOCUMENT_FILE_PATH: data/document/concatenate.pkl
