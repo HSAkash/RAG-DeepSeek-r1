@@ -67,3 +67,7 @@ llm_prompts:
         <name>{name}</name>
         <content>{content}</content>
     </file>
+
+  vector_store:
+    VECTOR_STORE_PATH: data/vector_store
+    CONCATENATE_VECTOR_FILE_PATH: data/vector_store/concatenate.db
