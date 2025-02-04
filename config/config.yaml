@@ -3,15 +3,15 @@ artifacts_root: data
 llm:
   SEED: 42
   TEMPERATURE: 0.6
-  N_CONTEXT_RESULTS: 3
-  NAME: deepseek-r1:8b
+  # MODEL_NAME: deepseek-r1:8b
+  MODEL_NAME: deepseek-r1:1.5b
 
 # Document upload
 documentUpload:
   ALLOWED_FILE_EXTENSIONS: ['.pdf', '.docx', '.txt', '.md']
 
-# Documents preproceing
-preproceing:
+# Documents preprocessing
+preprocessing:
   CHUNK_SIZE: 2048
   CHUNK_OVERLAP: 128
   EMBEDDING_MODEL: BAAI/bge-small-en-v1.5
@@ -19,3 +19,26 @@ preproceing:
   CONTEXTUALIZE_CHUNKS: True
   N_SEMANTIC_RESULTS: 5
   N_BM25_RESULTS: 5
+  N_CONTEXT_RESULTS: 3
+  context_prompt: |
+    You're an expert in document analysis. Your task is to provide brief, relevant context for a chunk.
+
+    Here is the document:
+    <document>
+    {document}
+    </document>
+
+    Here is the chunk we want to situate within the whole document:
+    <chunk>
+    {chunk}
+    </chunk>
+
+    Provide a concise context (2-3 sentences) for this chunk, considering the following guidelines:
+    1. Identify the main topic or concept discussed in the chunk.
+    2. Mention any relevant information or comparisons from the broader document context.
+    3. If applicable, note how this information relates to the overall theme or purpose of the document.
+    4. Include any key figures, dates, or percentages that provide important context.
+    5. Do not use phrases like "This chunk discusses" or "This section provides". Instead, directly state the relevant information.
+
+    Please give a short succinct context to situate this chunk within the overall document.
+    Context:
