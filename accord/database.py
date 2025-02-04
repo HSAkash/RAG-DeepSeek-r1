@@ -25,20 +25,25 @@ class Database:
         sql_command = """CREATE TABLE document ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL,
+        document_path TEXT NOT NULL,
         vector_path TEXT NOT NULL);"""
         # execute the statement
         self.crsr.execute(sql_command)
 
-        self.insert_data('concatenate.pdf', self.config.vector_store.CONCATENATE_VECTOR_FILE_PATH)
+        self.insert_data(
+            'concatenate.pdf',
+            self.config.vector_store.CONCATENATE_DOCUMENT_FILE_PATH,
+            self.config.vector_store.CONCATENATE_VECTOR_FILE_PATH
+        )
         logger.info("Table created successfully")
 
 
 
-    def insert_data(self, file_name:str, vector_path:str):
+    def insert_data(self, file_name:str, document_path:str, vector_path:str):
         # SQL command to insert the data in the table
-        sql_command = """INSERT INTO document (name, vector_path) VALUES (?, ?, ?);"""
+        sql_command = """INSERT INTO document (name, document_path, vector_path) VALUES (?, ?, ?);"""
         # execute the statement
-        self.crsr.execute(sql_command, (file_name, vector_path))
+        self.crsr.execute(sql_command, (file_name, document_path, vector_path))
         # commit the statement
         self.connection.commit()
 
@@ -59,7 +64,7 @@ class Database:
         # store all the fetched data in the ans variable
         ans = self.crsr.fetchall()
         # loop to print all the data
-        data = [{"id":i[0], "name": i[1], "vector_path": i[2]} for i in ans]
+        data = [{"id":i[0], "name": i[1],"document_path": i[2], "vector_path": i[3]} for i in ans]
         return data
 
 
