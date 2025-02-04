@@ -1,11 +1,18 @@
 import sqlite3
+import os
 from pathlib import Path
 from accord import logger
+from accord.constants import (
+    CONCATENATE_EMBEDDED_FILE_PATH,
+    CONCATENATE_DOCUMENT_FILE_PATH,
+    
+)
 
 class Database:
     def __init__(self):
         self.connection = sqlite3.connect(Path("accord.db"))
         self.crsr = self.connection.cursor()
+
 
     def create_table(self):
         # Check if table already exists
@@ -23,10 +30,13 @@ class Database:
         name TEXT NOT NULL, 
         file_path TEXT NOT NULL,
         vector_path TEXT NOT NULL);"""
-
         # execute the statement
         self.crsr.execute(sql_command)
+
+        self.insert_data('concatenate.pdf', CONCATENATE_DOCUMENT_FILE_PATH, CONCATENATE_EMBEDDED_FILE_PATH)
         logger.info("Table created successfully")
+
+
 
     def insert_data(self, file_name:str, file_path:str, vector_path:str):
         # SQL command to insert the data in the table
