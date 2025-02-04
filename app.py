@@ -3,12 +3,17 @@ import streamlit as st
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from accord.file_loader import load_file
 from accord.database import Database
+from accord.constants import (
+    CONCATENATE_EMBEDDED_FILE_PATH,
+    CONCATENATE_DOCUMENT_FILE_PATH,
+)
 
 import sys
 import os
 
-# print("Current working directory:", os.getcwd())  # Check current directory
-# print("Python search paths:", sys.path)  # Print all paths Python searches
+os.makedirs(os.path.dirname(CONCATENATE_EMBEDDED_FILE_PATH), exist_ok=True)
+os.makedirs(os.path.dirname(CONCATENATE_DOCUMENT_FILE_PATH), exist_ok=True)
+
 
 # sys.path.append(os.path.abspath("."))  # Adds the current directory to Python path
 
