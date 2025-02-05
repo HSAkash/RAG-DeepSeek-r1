@@ -4,6 +4,7 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 from pypdfium2 import PdfDocument
 from docx import Document
 from accord.utils import get_config
+from accord.entity import File
 
 
 config = get_config()
@@ -13,12 +14,6 @@ PDF_EXTENSION = ".pdf"
 MD_FILE_EXTENSION = ".md"
 DOCX_EXTENSION = ".docx"
 
-
-
-@dataclass
-class File:
-    name: str
-    content: str
 
 def extract_pdf_content(file_path: Path) -> str:
     """

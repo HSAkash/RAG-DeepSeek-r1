@@ -11,7 +11,7 @@ from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_ollama import ChatOllama
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from accord.utils import get_config, remove_thinking_from_message
-from accord.file_loader import File
+from accord.entity import File
 from accord import logger
 import shortuuid
 from pathlib import Path
