@@ -2,6 +2,9 @@ from box.exceptions import BoxValueError
 import yaml
 from box import ConfigBox
 from pathlib import Path
+from accord.entity import Message
+from typing import List
+
 
 CONFIG_PATH = Path("config/config.yaml")
 
@@ -47,3 +50,13 @@ def remove_thinking_from_message(message:str)->str:
     close_tag = "</think>"
     tag_length = len(close_tag)
     return message[message.index(close_tag) + tag_length:]
+
+
+def create_history(welcone_message: Message) -> List[Message]:
+    """creates history
+    Args:
+        welcone_message (Message): welcome message
+    Returns:
+        List[Message]: list of messages
+    """
+    return [welcone_message]
