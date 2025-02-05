@@ -4,6 +4,7 @@ from box import ConfigBox
 from pathlib import Path
 from accord.entity import Message
 from typing import List
+from accord import logger
 
 
 CONFIG_PATH = Path("config/config.yaml")
@@ -49,7 +50,7 @@ def remove_thinking_from_message(message:str)->str:
     """
     close_tag = "</think>"
     tag_length = len(close_tag)
-    return message[message.index(close_tag) + tag_length:]
+    return message[message.find(close_tag) + tag_length:].strip()
 
 
 def create_history(welcone_message: Message) -> List[Message]:

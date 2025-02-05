@@ -30,7 +30,7 @@ class DataIngestor:
         # Initialize the text splitter
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.config.preprocessing.CHUNK_SIZE,
-            overlap=self.config.preprocessing.CHUNK_OVERLAP,
+            chunk_overlap=self.config.preprocessing.CHUNK_OVERLAP,
         )
         # Initialize the LLM
         self.llm = ChatOllama(
@@ -155,14 +155,15 @@ class DataIngestor:
         documents = [Document(file.content, metadata={"source": file.name}) for file in files]
         for document in documents:
             file_name = document.metadata["source"]
+            uid = shortuuid.uuid()
             logger.info(f"Processing {file_name}")
             vector_db_path = os.path.join(
-                self.config.preprocessing.VECTOR_STORE_DIR,
-                f"{shortuuid.uuid()}.db"
+                self.config.vector_store.VECTOR_STORE_DIR,
+                f"{uid}.db"
             )
             document_path = os.path.join(
-                self.config.preprocessing.DOCUMENT_STORE_DIR,
-                f"{file_name}.pkl"
+                self.config.vector_store.DOCUMENT_STORE_DIR,
+                f"{uid}.pkl"
             )
             # create chunks of the document
             chunks = self.create_chunks(document)
@@ -172,9 +173,9 @@ class DataIngestor:
             )
             # load previous document if exists
             if isconcate:
-                concate_documents = self.load_document(self.config.preprocessing.CONCATENATE_DOCUMENT_FILE_PATH)
+                concate_documents = self.load_document(self.config.vector_store.CONCATENATE_DOCUMENT_FILE_PATH)
                 concate_documents.extend(chunks)
-                self.save_document(concate_documents, self.config.preprocessing.CONCATENATE_DOCUMENT_FILE_PATH)
+                self.save_document(concate_documents, self.config.vector_store.CONCATENATE_DOCUMENT_FILE_PATH)
             # create embeddings for the chunks
             vectore_store, concate_vector_store = self.create_embeddings(
                 chunks,
@@ -211,7 +212,7 @@ class DataIngestor:
             }
         )
         bm25_retriever = BM25Retriever.from_documents(documents)
-        bm25_retriever.k =  self.config.Preprocessing.N_BM25_RESULTS
+        bm25_retriever.k =  self.config.preprocessing.N_BM25_RESULTS
 
         ensemble_retriever = EnsembleRetriever(
             retrievers=[semantic_retriever, bm25_retriever],
