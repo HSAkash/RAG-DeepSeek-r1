@@ -116,15 +116,19 @@ def process_files(options, option):
     chatbot.set_retriever(options[option]["document_path"], options[option]["vector_path"])
     # print(options[option]["document_path"], options[option]["vector_path"])
 
+# Select an option
+options = {}
+for file in files:
+    options[f"{file['id']}. {file['name']}"] = file
+selected_option = st.selectbox("Select your file:", options)
+
+# Call function if valid option is selected
+if selected_option != "Select":
+    process_files(options, selected_option)
+
 with st.sidebar:
     st.title("Uploaded files")
+    file_list_text = "\n".join([f"- {file['name']}" for file in files])
+    st.markdown(file_list_text)
 
-    # Select an option
-    options = {}
-    for file in files:
-        options[f"{file['id']}. {file['name']}"] = file
-    selected_option = st.selectbox("Select your file:", options)
 
-    # Call function if valid option is selected
-    if selected_option != "Select":
-        process_files(options, selected_option)
